@@ -34,6 +34,13 @@ static const char *const autostart[] = {
 	NULL /* terminate */
 };
 
+static const char *tagsel[][2] = {
+   /*   fg         bg    */
+  { col_gray3, col_gray1 }, /* norm */
+  { col_gray4, col_cyan  }, /* sel */
+  { col_cyan,  col_gray1 }, /* occ but not sel */
+  { col_cyan,  col_gray3 }, /* has pinned tag */
+};
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
