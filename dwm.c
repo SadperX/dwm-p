@@ -1369,11 +1369,60 @@ movemouse(const Arg *arg)
 				ny = selmon->wy;
 			else if (abs((selmon->wy + selmon->wh) - (ny + HEIGHT(c))) < snap)
 				ny = selmon->wy + selmon->wh - HEIGHT(c);
-			if (!c->isfloating && selmon->lt[selmon->sellt]->arrange
-			&& (abs(nx - c->x) > snap || abs(ny - c->y) > snap))
-				togglefloating(NULL);
 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
 				resize(c, nx, ny, c->w, c->h, 1);
+			else if (selmon->lt[selmon->sellt]->arrange || !c->isfloating) {
+				if ((m = recttomon(ev.xmotion.x_root, ev.xmotion.y_root, 1, 1)) != selmon) {
+					sendmon(c, m);
+					selmon = m;
+					focus(NULL);
+				}
+
+				Client *cc = c->mon->clients;
+				while (1) {
+					if (cc == 0) break;
+					if(
+					 cc != c && !cc->isfloating && ISVISIBLE(cc) &&
+					 ev.xmotion.x_root > cc->x &&
+					 ev.xmotion.x_root < cc->x + cc->w &&
+					 ev.xmotion.y_root > cc->y &&
+					 ev.xmotion.y_root < cc->y + cc->h ) {
+						break;
+					}
+
+					cc = cc->next;
+				}
+
+				if (cc) {
+					Client *cl1, *cl2, ocl1;
+					
+					if (!selmon->lt[selmon->sellt]->arrange) return;
+
+					cl1 = c;
+					cl2 = cc;
+					ocl1 = *cl1;
+					strcpy(cl1->name, cl2->name);
+					cl1->win = cl2->win;
+					cl1->x = cl2->x;
+					cl1->y = cl2->y;
+					cl1->w = cl2->w;
+					cl1->h = cl2->h;
+					
+					cl2->win = ocl1.win;
+					strcpy(cl2->name, ocl1.name);
+					cl2->x = ocl1.x;
+					cl2->y = ocl1.y;
+					cl2->w = ocl1.w;
+					cl2->h = ocl1.h;
+					
+					selmon->sel = cl2;
+
+					c = cc;
+					focus(c);
+					
+					arrange(cl1->mon);
+				}
+			}
 			break;
 		}
 	} while (ev.type != ButtonRelease);
@@ -1510,7 +1559,16 @@ resizemouse(const Arg *arg)
 	if (XGrabPointer(dpy, root, False, MOUSEMASK, GrabModeAsync, GrabModeAsync,
 		None, cursor[CurResize]->cursor, CurrentTime) != GrabSuccess)
 		return;
-	XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
+
+	if (c->isfloating || NULL == c->mon->lt[c->mon->sellt]->arrange) {
+		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
+	} else {
+		XWarpPointer(dpy, None, root, 0, 0, 0, 0,
+			selmon->mx + (selmon->ww * selmon->mfact),
+			selmon->my + (selmon->wh / 2)
+		);
+	}
+
 	do {
 		XMaskEvent(dpy, MOUSEMASK|ExposureMask|SubstructureRedirectMask, &ev);
 		switch(ev.type) {
@@ -1526,19 +1584,24 @@ resizemouse(const Arg *arg)
 
 			nw = MAX(ev.xmotion.x - ocx - 2 * c->bw + 1, 1);
 			nh = MAX(ev.xmotion.y - ocy - 2 * c->bw + 1, 1);
-			if (c->mon->wx + nw >= selmon->wx && c->mon->wx + nw <= selmon->wx + selmon->ww
-			&& c->mon->wy + nh >= selmon->wy && c->mon->wy + nh <= selmon->wy + selmon->wh)
-			{
-				if (!c->isfloating && selmon->lt[selmon->sellt]->arrange
-				&& (abs(nw - c->w) > snap || abs(nh - c->h) > snap))
-					togglefloating(NULL);
-			}
+
 			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
 				resize(c, c->x, c->y, nw, nh, 1);
 			break;
 		}
 	} while (ev.type != ButtonRelease);
-	XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
+
+	if (c->isfloating || NULL == c->mon->lt[c->mon->sellt]->arrange) {
+		XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
+	} else {
+		selmon->mfact = (double) (ev.xmotion.x_root - selmon->mx) / (double) selmon->ww;
+		arrange(selmon);
+		XWarpPointer(dpy, None, root, 0, 0, 0, 0,
+			selmon->mx + (selmon->ww * selmon->mfact),
+			selmon->my + (selmon->wh / 2)
+		);
+	}
+
 	XUngrabPointer(dpy, CurrentTime);
 	while (XCheckMaskEvent(dpy, EnterWindowMask, &ev));
 	if ((m = recttomon(c->x, c->y, c->w, c->h)) != selmon) {
