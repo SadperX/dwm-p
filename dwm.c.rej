@@ -1,45 +1,43 @@
 --- dwm.c
 +++ dwm.c
-@@ -2126,14 +2138,38 @@ void
- zoom(const Arg *arg)
- {
- 	Client *c = selmon->sel;
-+	Client *at = NULL, *cold, *cprevious = NULL;
- 
- 	if (!selmon->lt[selmon->sellt]->arrange
- 	|| (selmon->sel && selmon->sel->isfloating))
- 		return;
--	if (c == nexttiled(selmon->clients))
--		if (!c || !(c = nexttiled(c->next)))
--			return;
--	pop(c);
-+	if (c == nexttiled(selmon->clients)) {
-+		at = findbefore(prevzoom);
-+		if (at)
-+			cprevious = nexttiled(at->next);
-+		if (!cprevious || cprevious != prevzoom) {
-+			prevzoom = NULL;
-+			if (!c || !(c = nexttiled(c->next)))
-+				return;
-+		} else
-+			c = cprevious;
-+	}
-+	cold = nexttiled(selmon->clients);
-+	if (c != cold && !at)
-+		at = findbefore(c);
-+	detach(c);
-+	attach(c);
-+	/* swap windows instead of pushing the previous one down */
-+	if (c != cold && at) {
-+		prevzoom = cold;
-+		if (cold && at != cold) {
-+			detach(cold);
-+			cold->next = at->next;
-+			at->next = cold;
-+		}
-+	}
-+	focus(c);
-+	arrange(c->mon);
+@@ -212,7 +216,6 @@ static void sigchld(int unused);
+ static void spawn(const Arg *arg);
+ static void tag(const Arg *arg);
+ static void tagmon(const Arg *arg);
+-static void tile(Monitor *);
+ static void togglebar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
+ static void toggletag(const Arg *arg);
+@@ -1678,32 +1685,6 @@ tagmon(const Arg *arg)
+ 	sendmon(selmon->sel, dirtomon(arg->i));
  }
  
- int
+-void
+-tile(Monitor *m)
+-{
+-	unsigned int i, n, h, mw, my, ty;
+-	Client *c;
+-
+-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+-	if (n == 0)
+-		return;
+-
+-	if (n > m->nmaster)
+-		mw = m->nmaster ? m->ww * m->mfact : 0;
+-	else
+-		mw = m->ww;
+-	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+-		if (i < m->nmaster) {
+-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
+-			my += HEIGHT(c);
+-		} else {
+-			h = (m->wh - ty) / (n - i);
+-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
+-			ty += HEIGHT(c);
+-		}
+-}
+-
+ void
+ togglebar(const Arg *arg)
+ {
