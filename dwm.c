@@ -924,13 +924,13 @@ drawbar(Monitor *m)
     for (i = 0; i < LENGTH(tags); i++) {
         w = TEXTW(tags[i]);
         if (m->tagset[m->seltags] & 1 << i)
-            drw_setscheme(drw, tagscheme[1]);
+            drw_setscheme(drw, tagscheme[9+i]);
         else if (m == selmon && selmon->sel && selmon->sel->tags & 1 << i)
-            drw_setscheme(drw, tagscheme[3]);
+            drw_setscheme(drw, tagscheme[27]);
         else if (occ & 1 << i) 
-            drw_setscheme(drw, tagscheme[2]);
+            drw_setscheme(drw, tagscheme[18+i]);
         else
-            drw_setscheme(drw, tagscheme[0]);
+            drw_setscheme(drw, tagscheme[i]);
         drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
         x += w;
     }

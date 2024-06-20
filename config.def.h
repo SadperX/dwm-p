@@ -21,6 +21,26 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_lightblue[]   = "#7aa2f7";
+static const char col_turquesa[]    = "#2ac3de";
+static const char col_purple[]      = "#9d7cd8";
+static const char col_orange[]      = "#ff9e64";
+static const char col_yellow[]      = "#e0af68";
+static const char col_lightcyan[]   = "#b4f9f8";
+static const char col_green[]       = "#73daca";
+static const char col_lightpurple[] = "#c0caf5";
+
+static const char d_col_cyan[]        = "#005577";
+static const char d_col_lightblue[]   = "#4d7db3";
+static const char d_col_turquesa[]    = "#1d9baf";
+static const char d_col_purple[]      = "#7a5cb4";
+static const char d_col_orange[]      = "#d98040";
+static const char d_col_yellow[]      = "#b88b4f";
+static const char d_col_lightcyan[]   = "#8dc4c5";
+static const char d_col_green[]       = "#54a8a6";
+static const char d_col_lightpurple[] = "#8d92b8";
+
+static const char col_red[]           = "#ff9e64";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -36,9 +56,36 @@ static const char *const autostart[] = {
 
 static const char *tagsel[][2] = {
    /*   fg         bg    */
-  { col_gray3, col_gray1 }, /* norm */
-  { col_gray4, col_cyan  }, /* sel */
-  { col_cyan,  col_gray1 }, /* occ but not sel */
+  { col_cyan       , col_gray1 }, /* norm1 */
+  { col_lightblue  , col_gray1 }, /* norm2 */
+  { col_turquesa   , col_gray1 }, /* norm3 */
+  { col_purple     , col_gray1 }, /* norm4 */
+  { col_orange     , col_gray1 }, /* norm5 */
+  { col_yellow     , col_gray1 }, /* norm6 */
+  { col_lightcyan  , col_gray1 }, /* norm7 */
+  { col_green      , col_gray1 }, /* norm8 */
+  { col_lightpurple, col_gray1 }, /* norm9 */
+
+  { col_cyan       , col_gray2 }, /* sel1 */
+  { col_lightblue  , col_gray2 }, /* sel2 */
+  { col_turquesa   , col_gray2 }, /* sel3 */
+  { col_purple     , col_gray2 }, /* sel4 */
+  { col_orange     , col_gray2 }, /* sel5 */
+  { col_yellow     , col_gray2 }, /* sel6 */
+  { col_lightcyan  , col_gray2 }, /* sel7 */
+  { col_green      , col_gray2 }, /* sel8 */
+  { col_lightpurple, col_gray2 }, /* sel9 */
+
+  { d_col_cyan       , col_gray1 }, /* occ but not sel1 */
+  { d_col_lightblue  , col_gray1 }, /* occ but not sel2 */
+  { d_col_turquesa   , col_gray1 }, /* occ but not sel3 */
+  { d_col_purple     , col_gray1 }, /* occ but not sel4 */
+  { d_col_orange     , col_gray1 }, /* occ but not sel5 */
+  { d_col_yellow     , col_gray1 }, /* occ but not sel6 */
+  { d_col_lightcyan  , col_gray1 }, /* occ but not sel7 */
+  { d_col_green      , col_gray1 }, /* occ but not sel8 */
+  { d_col_lightpurple, col_gray1 }, /* occ but not sel9 */
+
   { col_cyan,  col_gray3 }, /* has pinned tag */
 };
 /* tagging */
