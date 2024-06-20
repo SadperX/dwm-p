@@ -86,10 +86,23 @@ static const char *tagsel[][2] = {
   { d_col_green      , col_gray1 }, /* occ but not sel8 */
   { d_col_lightpurple, col_gray1 }, /* occ but not sel9 */
 
-  { col_cyan,  col_gray3 }, /* has pinned tag */
+  { d_col_cyan       , col_gray3 }, /* has pinned tag1 */
+  { d_col_lightblue  , col_gray3 }, /* has pinned tag2 */
+  { d_col_turquesa   , col_gray3 }, /* has pinned tag3 */
+  { d_col_purple     , col_gray3 }, /* has pinned tag4 */
+  { d_col_orange     , col_gray3 }, /* has pinned tag5 */
+  { d_col_yellow     , col_gray3 }, /* has pinned tag6 */
+  { d_col_lightcyan  , col_gray3 }, /* has pinned tag7 */
+  { d_col_green      , col_gray3 }, /* has pinned tag8 */
+  { d_col_lightpurple, col_gray3 }, /* has pinned tag9 */
 };
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
+static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
+static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
 static const Rule rules[] = {
 	/* xprop(1):

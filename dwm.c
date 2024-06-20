@@ -923,15 +923,22 @@ drawbar(Monitor *m)
 	x = 0;
     for (i = 0; i < LENGTH(tags); i++) {
         w = TEXTW(tags[i]);
-        if (m->tagset[m->seltags] & 1 << i)
+        if (m->tagset[m->seltags] & 1 << i){
             drw_setscheme(drw, tagscheme[9+i]);
-        else if (m == selmon && selmon->sel && selmon->sel->tags & 1 << i)
-            drw_setscheme(drw, tagscheme[27]);
-        else if (occ & 1 << i) 
+        }
+        else if (m == selmon && selmon->sel && selmon->sel->tags & 1 << i) {
+            drw_setscheme(drw, tagscheme[27+i]);
+        }
+        else if (occ & 1 << i) {
             drw_setscheme(drw, tagscheme[18+i]);
-        else
+        } 
+        else {
             drw_setscheme(drw, tagscheme[i]);
+        }
+
         drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+		if (ulineall || m->tagset[m->seltags] & 1 << i) /* if there are conflicts, just move these lines directly underneath both 'drw_setscheme' and 'drw_text' :) */
+			drw_rect(drw, x + ulinepad, bh - ulinestroke - ulinevoffset, w - (ulinepad * 2), ulinestroke, 1, 0);
         x += w;
     }
 	w = TEXTW(m->ltsymbol);
