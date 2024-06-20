@@ -158,8 +158,15 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-x", "10", "-y", "10", "-z", "1340", "-l", "0", "-i", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4,  NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *incvolcmd[]  = { "amixer", "sset", "Master", "5%+" , NULL };
+static const char *decvolcmd[]  = { "amixer", "sset", "Master", "5%-" , NULL };
+
+#include <X11/XF86keysym.h>
 
 static const Key keys[] = {
+	{ 0,              XF86XK_AudioLowerVolume, spawn,          {.v = decvolcmd } },
+	{ 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = incvolcmd } },
+
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
