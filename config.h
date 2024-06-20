@@ -10,12 +10,12 @@ static const unsigned int gappov    = 8;       /* vert outer gap between windows
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
-static const int vertpadbar         = 2;        /* vertical padding for statusbar */
+static const int horizpadbar        = 5;        /* horizontal padding for statusbar */
+static const int vertpadbar         = 10;        /* vertical padding for statusbar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 10;       /* horizontal padding of bar */
-static const char *fonts[]          = { "Iosevka Nerd Font:size=10" };
-static const char dmenufont[]       = "Iosevka Nerd Font:size=10";
+static const char *fonts[]          = { "Iosevka Nerd Font:size=11" };
+static const char dmenufont[]       = "Iosevka Nerd Font:size=11";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -66,15 +66,15 @@ static const char *tagsel[][2] = {
   { col_green      , col_gray1 }, /* norm8 */
   { col_lightpurple, col_gray1 }, /* norm9 */
 
-  { col_cyan       , col_gray2 }, /* sel1 */
-  { col_lightblue  , col_gray2 }, /* sel2 */
-  { col_turquesa   , col_gray2 }, /* sel3 */
-  { col_purple     , col_gray2 }, /* sel4 */
-  { col_orange     , col_gray2 }, /* sel5 */
-  { col_yellow     , col_gray2 }, /* sel6 */
-  { col_lightcyan  , col_gray2 }, /* sel7 */
-  { col_green      , col_gray2 }, /* sel8 */
-  { col_lightpurple, col_gray2 }, /* sel9 */
+  { col_cyan       , col_gray1 }, /* sel1 */
+  { col_lightblue  , col_gray1 }, /* sel2 */
+  { col_turquesa   , col_gray1 }, /* sel3 */
+  { col_purple     , col_gray1 }, /* sel4 */
+  { col_orange     , col_gray1 }, /* sel5 */
+  { col_yellow     , col_gray1 }, /* sel6 */
+  { col_lightcyan  , col_gray1 }, /* sel7 */
+  { col_green      , col_gray1 }, /* sel8 */
+  { col_lightpurple, col_gray1 }, /* sel9 */
 
   { d_col_cyan       , col_gray1 }, /* occ but not sel1 */
   { d_col_lightblue  , col_gray1 }, /* occ but not sel2 */
@@ -156,7 +156,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-x", "10", "-y", "10", "-z", "1340", "-l", "0", "-i", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4,  NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
