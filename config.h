@@ -32,6 +32,12 @@ static const char col_lightcyan[]   = "#b4f9f8";
 static const char col_green[]       = "#73daca";
 static const char col_lightpurple[] = "#c0caf5";
 
+static const char col_niagara[] = "#96a6c8";
+static const char col_niagara1[] = "#565f73";
+static const char col_niagara2[] = "#6E7890";
+static const char col_wisteria[] = "#9e95c7";
+static const char col_bg[] = "#2f343a";
+
 static const char d_col_cyan[]        = "#005577";
 static const char d_col_lightblue[]   = "#4d7db3";
 static const char d_col_turquesa[]    = "#1d9baf";
@@ -44,10 +50,10 @@ static const char d_col_lightpurple[] = "#8d92b8";
 
 static const char col_red[]           = "#ff9e64";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-	[SchemeLay]  = { col_lightblue, col_gray1, col_gray1 },
+	/*               fg                 bg              border   */
+	[SchemeNorm] = { col_gray3,         col_gray1,      col_gray1 },
+	[SchemeSel]  = { col_gray4,         col_cyan,       col_niagara1  },
+	[SchemeLay]  = { col_lightblue,     col_gray1,      col_gray1 },
 };
 
 static const char *const autostart[] = {
