@@ -8,12 +8,11 @@ red=#f7768e
 darkblue=$grey
 
 clock() {
-	printf "^c$black^ ^b$darkblue^ 󱑆 "
-	printf "^c$black^ ^b$blue^ $(date '+%H:%M:%S') ^d^    "
+	printf "$(date '+  %D | 󱑆  %H:%M:%S') "
 }
 
 
 while true; do
     xsetroot -name "$(clock)"
-    sleep 1 
+    sleep 1
 done

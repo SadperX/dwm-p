@@ -16,8 +16,8 @@ static const int vertpadbar         = 4;        /* vertical padding for statusba
 
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
-static const char *fonts[]          = { "Iosevka Nerd Font:size=11" };
-static const char dmenufont[]       = "Iosevka Nerd Font:size=11";
+static const char *fonts[]          = { "Iosevka Nerd Font:size=8" };
+static const char dmenufont[]       = "Iosevka Nerd Font:size=8";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -26,10 +26,10 @@ static const char col_cyan[]        = "#005577";
 static const char col_lightblue[]   = "#7aa2f7";
 static const char col_turquesa[]    = "#2ac3de";
 static const char col_purple[]      = "#9d7cd8";
-static const char col_orange[]      = "#ff9e64";
-static const char col_yellow[]      = "#e0af68";
+static const char col_orange[]      = "#FF9E23";
+static const char col_yellow[]      = "#ffdd33";
 static const char col_lightcyan[]   = "#b4f9f8";
-static const char col_green[]       = "#73daca";
+static const char col_green[]       = "#73d936";
 static const char col_lightpurple[] = "#c0caf5";
 
 static const char col_niagara[] = "#96a6c8";
@@ -42,7 +42,7 @@ static const char d_col_cyan[]        = "#005577";
 static const char d_col_lightblue[]   = "#4d7db3";
 static const char d_col_turquesa[]    = "#1d9baf";
 static const char d_col_purple[]      = "#7a5cb4";
-static const char d_col_orange[]      = "#d98040";
+static const char d_col_orange[]      = "#BC6B03";
 static const char d_col_yellow[]      = "#b88b4f";
 static const char d_col_lightcyan[]   = "#8dc4c5";
 static const char d_col_green[]       = "#54a8a6";
@@ -51,9 +51,9 @@ static const char d_col_lightpurple[] = "#8d92b8";
 static const char col_red[]           = "#ff9e64";
 static const char *colors[][3]      = {
 	/*               fg                 bg              border   */
-	[SchemeNorm] = { col_gray3,         col_gray1,      col_gray1 },
-	[SchemeSel]  = { col_gray4,         col_cyan,       col_niagara1  },
-	[SchemeLay]  = { col_lightblue,     col_gray1,      col_gray1 },
+	[SchemeNorm] = { col_gray3,         col_gray1,      col_bg },
+	[SchemeSel]  = { col_gray4,         col_cyan,       col_niagara2},
+	[SchemeLay]  = { col_green,         col_gray1,      col_gray1 },
 };
 
 static const char *const autostart[] = {
@@ -64,36 +64,36 @@ static const char *const autostart[] = {
 };
 
 static const char *tagsel[][2] = {
-   /*   fg         bg    */
-  { col_cyan       , col_gray1 }, /* norm1 */
-  { col_lightblue  , col_gray1 }, /* norm2 */
-  { col_turquesa   , col_gray1 }, /* norm3 */
-  { col_purple     , col_gray1 }, /* norm4 */
-  { col_orange     , col_gray1 }, /* norm5 */
-  { col_yellow     , col_gray1 }, /* norm6 */
-  { col_lightcyan  , col_gray1 }, /* norm7 */
-  { col_green      , col_gray1 }, /* norm8 */
-  { col_lightpurple, col_gray1 }, /* norm9 */
+   /*   fg           bg    */
+  { col_niagara2   , col_gray1 }, /* norm1 */
+  { col_niagara2   , col_gray1 }, /* norm2 */
+  { col_niagara2   , col_gray1 }, /* norm3 */
+  { col_niagara2   , col_gray1 }, /* norm4 */
+  { col_niagara2   , col_gray1 }, /* norm5 */
+  { col_niagara2   , col_gray1 }, /* norm6 */
+  { col_niagara2   , col_gray1 }, /* norm7 */
+  { col_niagara2   , col_gray1 }, /* norm8 */
+  { col_niagara2   , col_gray1 }, /* norm9 */
 
-  { col_cyan       , col_gray1 }, /* sel1 */
-  { col_lightblue  , col_gray1 }, /* sel2 */
-  { col_turquesa   , col_gray1 }, /* sel3 */
-  { col_purple     , col_gray1 }, /* sel4 */
-  { col_orange     , col_gray1 }, /* sel5 */
+  { col_yellow     , col_gray1 }, /* sel1 */
+  { col_yellow     , col_gray1 }, /* sel2 */
+  { col_yellow     , col_gray1 }, /* sel3 */
+  { col_yellow     , col_gray1 }, /* sel4 */
+  { col_yellow     , col_gray1 }, /* sel5 */
   { col_yellow     , col_gray1 }, /* sel6 */
-  { col_lightcyan  , col_gray1 }, /* sel7 */
-  { col_green      , col_gray1 }, /* sel8 */
-  { col_lightpurple, col_gray1 }, /* sel9 */
+  { col_yellow     , col_gray1 }, /* sel7 */
+  { col_yellow     , col_gray1 }, /* sel8 */
+  { col_yellow     , col_gray1 }, /* sel9 */
 
-  { d_col_cyan       , col_gray1 }, /* occ but not sel1 */
-  { d_col_lightblue  , col_gray1 }, /* occ but not sel2 */
-  { d_col_turquesa   , col_gray1 }, /* occ but not sel3 */
-  { d_col_purple     , col_gray1 }, /* occ but not sel4 */
-  { d_col_orange     , col_gray1 }, /* occ but not sel5 */
-  { d_col_yellow     , col_gray1 }, /* occ but not sel6 */
-  { d_col_lightcyan  , col_gray1 }, /* occ but not sel7 */
-  { d_col_green      , col_gray1 }, /* occ but not sel8 */
-  { d_col_lightpurple, col_gray1 }, /* occ but not sel9 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel1 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel2 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel3 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel4 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel5 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel6 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel7 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel8 */
+  { d_col_orange   , col_gray1 }, /* occ but not sel9 */
 
   { d_col_cyan       , col_gray3 }, /* has pinned tag1 */
   { d_col_lightblue  , col_gray3 }, /* has pinned tag2 */
@@ -120,7 +120,6 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -193,6 +192,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
