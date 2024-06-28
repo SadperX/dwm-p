@@ -164,19 +164,27 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", /*"-x", "10", "-y", "10", "-z", "1340",*/ "-l", "0", "-i", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4,  NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *incvolcmd[]  = { "amixer", "sset", "Master", "5%+" , NULL };
-static const char *decvolcmd[]  = { "amixer", "sset", "Master", "5%-" , NULL };
+static const char *dmenucmd[] = { "dmenu_run", /*"-x", "10", "-y", "10", "-z", "1340",*/ "-l", "0", "-i", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_orange, "-sf", col_gray2,  NULL };
+
+static const char *termcmd[]      = { "st", NULL };
+static const char *incvolcmd[]    = { "amixer", "sset", "Master", "5%+" , NULL };
+static const char *decvolcmd[]    = { "amixer", "sset", "Master", "5%-" , NULL };
+
+static const char *setUscmd[]     = { "/home/sadper/Cloner/suckless/dwm/scripts/setUs.sh" , NULL };
+static const char *setLatamcmd[]  = { "/home/sadper/Cloner/suckless/dwm/scripts/setLatam.sh" , NULL };
 
 #include <X11/XF86keysym.h>
 
 static const Key keys[] = {
+	/* modifier                     key        function        argument */
 	{ 0,              XF86XK_AudioLowerVolume, spawn,          {.v = decvolcmd } },
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = incvolcmd } },
 
-	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenucmd } },
+
+	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = setUscmd } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = setLatamcmd } },
+
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

@@ -1023,6 +1023,9 @@ focus(Client *c)
 	}
 	selmon->sel = c;
 	drawbars();
+
+    if (selmon->lt[selmon->sellt]->arrange == monocle)
+        arrange(selmon);
 }
 
 /* there are some broken focus acquiring clients needing extra handling */
@@ -1361,7 +1364,15 @@ monocle(Monitor *m)
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx + gappoh, m->wy + gappov, m->ww - 2 * c->bw - gappih * 2, m->wh - 2 * c->bw - gappiv * 2, 0);
+        if (c == m->sel)
+            resize(c,
+                   m->wx + gappoh,
+                   m->wy + gappov,
+                   m->ww - 2 * c->bw - gappih * 2,
+                   m->wh - 2 * c->bw - gappiv * 2,
+                   0);
+        else
+            XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
 }
 
 void
