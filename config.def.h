@@ -173,7 +173,10 @@ static const char *decvolcmd[]    = { "amixer", "sset", "Master", "5%-" , NULL }
 static const char *setUscmd[]     = { "/home/sadper/Cloner/suckless/dwm/scripts/setUs.sh" , NULL };
 static const char *setLatamcmd[]  = { "/home/sadper/Cloner/suckless/dwm/scripts/setLatam.sh" , NULL };
 
+static const char *bommercmd[]  = { "/home/sadper/Cloner/boomer/boomer" , NULL };
+
 #include <X11/XF86keysym.h>
+
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -181,6 +184,8 @@ static const Key keys[] = {
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = incvolcmd } },
 
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenucmd } },
+
+	{ MODKEY,                       XK_z,      spawn,          {.v = bommercmd } },
 
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = setUscmd } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = setLatamcmd } },

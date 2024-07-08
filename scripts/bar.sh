@@ -8,7 +8,8 @@ red=#f7768e
 darkblue=$grey
 
 clock() {
-	printf "$(date '+  %D | 󱑆  %H:%M') "
+    printf " $(playerctl metadata -f '{{title}}') |"
+	printf " $(date '+  %D | 󱑆  %H:%M') "
 }
 
 
